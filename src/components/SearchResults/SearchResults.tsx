@@ -10,9 +10,14 @@ const SearchResults: React.FunctionComponent<Props> = ({ incidents }) => {
   return (
     <div>
       total: XX
-      {incidents.map(incident => JSON.stringify(incident))}
-      <Card />
-      <Card />
+      {incidents.map(incident => (
+        <Card
+          title={incident.title}
+          description={incident.description}
+          occurredAt={incident.occurred_at}
+          updatedAt={incident.updated_at}
+        />
+      ))}
       pagination
     </div>
   );
