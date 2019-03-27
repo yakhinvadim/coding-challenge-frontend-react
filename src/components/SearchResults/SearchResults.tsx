@@ -1,15 +1,15 @@
-import React from 'react'
-import Card from '../Card/Card'
+import React from 'react';
+import Card from '../Card/Card';
 
 const SearchResults = () => {
   return (
     <div>
       total: XX
-      <Card/>
-      <Card/>
+      <Card />
+      <Card />
       pagination
     </div>
-  )
-}
+  );
+};
 
-export default SearchResults
+export default SearchResults;
