@@ -9,7 +9,7 @@ type Props = {
 const SearchResults: React.FunctionComponent<Props> = ({ incidents }) => {
   return (
     <div>
-      total: XX
+      total: {incidents.length}
       {incidents.map(incident => (
         <Card
           title={incident.title}
