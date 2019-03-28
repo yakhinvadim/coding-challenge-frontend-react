@@ -1,7 +1,8 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
-import { DatePicker } from "material-ui-pickers";
+import { InlineDatePicker } from "material-ui-pickers";
+import { MaybeDate } from "../../types";
 
 const styles = createStyles({});
 
@@ -9,10 +10,10 @@ interface Props extends WithStyles<typeof styles> {
   onSubmit: (e: React.FormEvent) => void;
   textQuery: string;
   onTextQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  dateFrom: Date;
-  dateTo: Date;
-  onDateFromChange: (d: Date) => void;
-  onDateToChange: (d: Date) => void;
+  dateFrom: MaybeDate;
+  dateTo: MaybeDate;
+  onDateFromChange: (maybeDate: MaybeDate) => void;
+  onDateToChange: (maybeDate: MaybeDate) => void;
 }
 
 const SearchForm: React.FunctionComponent<Props> = ({
@@ -24,6 +25,23 @@ const SearchForm: React.FunctionComponent<Props> = ({
   onDateFromChange,
   onDateToChange
 }) => {
+  const DatePickerTemplate = (props: any) => {
+    return (
+      <InlineDatePicker
+        disableFuture
+        keyboard
+        disableOpenOnEnter
+        format="DD/MM/YYYY"
+        mask={value =>
+          value
+            ? [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]
+            : []
+        }
+        {...props}
+      />
+    );
+  };
+
   return (
     <form onSubmit={onSubmit}>
       <TextField
@@ -32,8 +50,18 @@ const SearchForm: React.FunctionComponent<Props> = ({
         value={textQuery}
         onChange={onTextQueryChange}
       />
-      <DatePicker value={dateFrom} onChange={onDateFromChange} />
-      <DatePicker value={dateTo} onChange={onDateToChange} />
+      <DatePickerTemplate
+        value={dateFrom}
+        onChange={onDateFromChange}
+        label="From"
+        placeholder="31/12/2017"
+      />
+      <DatePickerTemplate
+        value={dateTo}
+        onChange={onDateToChange}
+        label="To"
+        placeholder="31/12/2018"
+      />
       <button type="submit">Search</button>
     </form>
   );

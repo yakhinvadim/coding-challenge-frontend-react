@@ -3,13 +3,14 @@ import SearchForm from "../SearchForm/SearchForm";
 import SearchResults from "../SearchResults/SearchResults";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { MaybeDate } from "../../types";
 
 interface Props extends RouteComponentProps {}
 
 const App: React.FunctionComponent<Props> = ({ history }) => {
   const [textQuery, setTextQuery] = useState("");
-  const [dateFrom, handleDateFrom] = useState(new Date());
-  const [dateTo, handleDateTo] = useState(new Date());
+  const [dateFrom, handleDateFrom] = useState(null as MaybeDate);
+  const [dateTo, handleDateTo] = useState(null as MaybeDate);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
