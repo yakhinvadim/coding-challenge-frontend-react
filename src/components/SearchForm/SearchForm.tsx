@@ -3,6 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { InlineDatePicker } from "material-ui-pickers";
 import { MaybeDate } from "../../types";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const styles = createStyles({});
 
@@ -44,25 +46,44 @@ const SearchForm: React.FunctionComponent<Props> = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <TextField
-        id="text-query"
-        label="Search"
-        value={textQuery}
-        onChange={onTextQueryChange}
-      />
-      <DatePickerTemplate
-        value={dateFrom}
-        onChange={onDateFromChange}
-        label="From"
-        placeholder="31/12/2017"
-      />
-      <DatePickerTemplate
-        value={dateTo}
-        onChange={onDateToChange}
-        label="To"
-        placeholder="31/12/2018"
-      />
-      <button type="submit">Search</button>
+      <Grid
+        container
+        spacing={24}
+        alignItems="flex-end"
+        justify="space-between"
+      >
+        <Grid item xs={4}>
+          <TextField
+            id="text-query"
+            label="Search"
+            value={textQuery}
+            onChange={onTextQueryChange}
+            placeholder="Cannondale"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs>
+          <DatePickerTemplate
+            value={dateFrom}
+            onChange={onDateFromChange}
+            label="From"
+            placeholder="31/12/2017"
+          />
+        </Grid>
+        <Grid item xs>
+          <DatePickerTemplate
+            value={dateTo}
+            onChange={onDateToChange}
+            label="To"
+            placeholder="31/12/2018"
+          />
+        </Grid>
+        <Grid item xs>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Find Cases
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 };

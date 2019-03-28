@@ -24,12 +24,14 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
   };
 
   return (
-    <div style={{ maxWidth: 1000, margin: "0 auto", padding: 20 }}>
+    <div
+      style={{ minWidth: 800, maxWidth: 1000, margin: "0 auto", padding: 20 }}
+    >
       <Grid container spacing={24}>
-        <Grid item>
+        <Grid item xs={12}>
           <header>Police Department of Berlin</header>
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <SearchForm
             onSubmit={handleSubmit}
             onTextQueryChange={handleTextQueryChange}
@@ -40,7 +42,7 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
             onDateToChange={handleDateTo}
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <SearchResults />
         </Grid>
       </Grid>
