@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../Card/Card";
-import { Incident } from "../../types.d";
+import IncidentCard from "../IncidentCard/IncidentCard";
+import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
 
 type Props = {
@@ -16,7 +16,7 @@ const Incidents: React.FunctionComponent<Props> = ({ incidents }) => {
     <Grid container spacing={24} direction="column">
       {incidents.map(incident => (
         <Grid item>
-          <Card incident={incident} />
+          <IncidentCard incident={incident} />
         </Grid>
       ))}
     </Grid>

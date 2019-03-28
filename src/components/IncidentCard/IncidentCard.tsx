@@ -1,6 +1,7 @@
 import React from "react";
-import { Incident } from "../../types.d";
+import { Incident } from "../../types";
 import Paper from "@material-ui/core/Paper";
+import Card from "@material-ui/core/Card";
 import bike from "./bike.svg";
 
 const MILLISECONDS_IN_ONE_SECOND = 1000;
@@ -9,9 +10,9 @@ type Props = {
   incident: Incident;
 };
 
-const Card: React.FunctionComponent<Props> = ({ incident }) => {
+const IncidentCard: React.FunctionComponent<Props> = ({ incident }) => {
   return (
-    <Paper>
+    <Card>
       {incident.media.image_url_thumb ? (
         <img src={incident.media.image_url_thumb} />
       ) : (
@@ -35,8 +36,8 @@ const Card: React.FunctionComponent<Props> = ({ incident }) => {
       address: {incident.address}
       <br />
       <br />
-    </Paper>
+    </Card>
   );
 };
 
-export default Card;
+export default IncidentCard;
