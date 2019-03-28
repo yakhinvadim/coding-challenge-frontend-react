@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { MaybeDate } from "../../types";
 import Header from "../Header/Header";
+import queryString from "query-string";
 
 interface Props extends RouteComponentProps {}
 
@@ -15,7 +16,12 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    history.push(`/?query=${textQuery}`);
+    const query = queryString.stringify({
+      search: textQuery,
+      from: dateFrom ? dateFrom.valueOf() / 1000 : "",
+      to: dateTo ? dateTo.valueOf() / 1000 : ""
+    });
+    history.push(`/?${query}`);
   };
 
   const handleTextQueryChange = (

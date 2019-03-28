@@ -17,7 +17,9 @@ const SearchResults: React.FunctionComponent<Props> = ({ location }) => {
       page: 1,
       per_page: 10,
       proximity: "Berlin",
-      query: parsedQueryString.query
+      query: parsedQueryString.search,
+      occurred_after: parsedQueryString.from,
+      occurred_before: parsedQueryString.to
     };
 
     setIncidents([]);
