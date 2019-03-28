@@ -39,7 +39,7 @@ const SearchResults: React.FunctionComponent<Props> = ({ location }) => {
       {incidents.length ? (
         <Grid container spacing={24} direction="column">
           {incidents.map(incident => (
-            <Grid item>
+            <Grid item key={incident.id}>
               <IncidentCard incident={incident} />
             </Grid>
           ))}
