@@ -1,19 +1,43 @@
 import React from "react";
 import { Incident } from "../../types";
-import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import bike from "./bike.svg";
 import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
-const MILLISECONDS_IN_ONE_SECOND = 1000;
+const getLocaleDateAndTime = (secondsTimestamp: number) => {
+  return new Date(secondsTimestamp * 1000).toLocaleString([], {
+    minute: "numeric",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric"
+  });
+};
 
 const styles = createStyles({
   media: {
     width: 300,
-    height: 300
+    height: 300,
+    flex: "none"
+  },
+  card: {
+    display: "flex"
+  },
+  cardContent: {
+    flex: "auto",
+    display: "flex",
+    flexDirection: "column"
+  },
+
+  cardFooter: {
+    marginTop: "auto",
+    alignSelf: "flex-end"
   }
 });
+
 interface Props extends WithStyles<typeof styles> {
   incident: Incident;
 }
@@ -23,29 +47,28 @@ const IncidentCard: React.FunctionComponent<Props> = ({
   classes
 }) => {
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardMedia
         image={incident.media.image_url_thumb || bike}
         className={classes.media}
       />
-      <br />
-      title: {incident.title}
-      <br />
-      description: {incident.description}
-      <br />
-      occured at:{" "}
-      {new Date(
-        incident.occurred_at * MILLISECONDS_IN_ONE_SECOND
-      ).toLocaleString()}
-      <br />
-      updated at:{" "}
-      {new Date(
-        incident.updated_at * MILLISECONDS_IN_ONE_SECOND
-      ).toLocaleString()}
-      <br />
-      address: {incident.address}
-      <br />
-      <br />
+      <CardContent className={classes.cardContent}>
+        <Typography variant="h6" gutterBottom>
+          {incident.title}
+        </Typography>
+
+        <Typography variant="body1" gutterBottom>
+          {incident.description || "No description"}
+        </Typography>
+
+        <Typography variant="body1" gutterBottom>
+          {getLocaleDateAndTime(incident.occurred_at)} — {incident.address}
+        </Typography>
+
+        <Typography variant="body2" className={classes.cardFooter}>
+          Reported: {getLocaleDateAndTime(incident.updated_at)}
+        </Typography>
+      </CardContent>
     </Card>
   );
 };

@@ -17,7 +17,7 @@ const App = () => {
   }, []);
 
   return (
-    <div style={{ maxWidth: 800, margin: "0 auto", padding: 20 }}>
+    <div style={{ maxWidth: 1000, margin: "0 auto", padding: 20 }}>
       <Grid container spacing={24}>
         <Grid item>
           <header>Police Department of Berlin</header>
