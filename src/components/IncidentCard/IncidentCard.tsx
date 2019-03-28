@@ -3,21 +3,31 @@ import { Incident } from "../../types";
 import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import bike from "./bike.svg";
+import CardMedia from "@material-ui/core/CardMedia";
+import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 
 const MILLISECONDS_IN_ONE_SECOND = 1000;
 
-type Props = {
+const styles = createStyles({
+  media: {
+    width: 300,
+    height: 300
+  }
+});
+interface Props extends WithStyles<typeof styles> {
   incident: Incident;
-};
+}
 
-const IncidentCard: React.FunctionComponent<Props> = ({ incident }) => {
+const IncidentCard: React.FunctionComponent<Props> = ({
+  incident,
+  classes
+}) => {
   return (
     <Card>
-      {incident.media.image_url_thumb ? (
-        <img src={incident.media.image_url_thumb} />
-      ) : (
-        <img src={bike} width={300} height={300} />
-      )}
+      <CardMedia
+        image={incident.media.image_url_thumb || bike}
+        className={classes.media}
+      />
       <br />
       title: {incident.title}
       <br />
@@ -40,4 +50,4 @@ const IncidentCard: React.FunctionComponent<Props> = ({ incident }) => {
   );
 };
 
-export default IncidentCard;
+export default withStyles(styles)(IncidentCard);
