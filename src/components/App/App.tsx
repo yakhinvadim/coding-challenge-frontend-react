@@ -3,9 +3,14 @@ import SearchForm from "../SearchForm/SearchForm";
 import SearchResults from "../SearchResults/SearchResults";
 import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-const App = () => {
+interface Props extends RouteComponentProps {}
+
+const App: React.FunctionComponent<Props> = ({ history }) => {
   const [incidents, setIncidents] = useState([] as Incident[]);
+  const [textQuery, setTextQuery] = useState("");
+
   useEffect(() => {
     fetch(
       "https://bikewise.org:443/api/v2/incidents?incident_type=theft&page=1&per_page=10&proximity=Berlin"
@@ -16,6 +21,16 @@ const App = () => {
       });
   }, []);
 
+  const handleSubmit = () => {
+    history.push(`?query=${textQuery}`);
+  };
+
+  const handleTextQueryChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setTextQuery(event.target.value);
+  };
+
   return (
     <div style={{ maxWidth: 1000, margin: "0 auto", padding: 20 }}>
       <Grid container spacing={24}>
@@ -23,7 +38,11 @@ const App = () => {
           <header>Police Department of Berlin</header>
         </Grid>
         <Grid item>
-          <SearchForm />
+          <SearchForm
+            onSubmit={handleSubmit}
+            onTextQueryChange={handleTextQueryChange}
+            textQuery={textQuery}
+          />
         </Grid>
         <Grid item>
           <SearchResults incidents={incidents} />
@@ -33,4 +52,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);
