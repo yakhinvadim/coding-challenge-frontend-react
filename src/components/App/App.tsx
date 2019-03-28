@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import SearchForm from "./components/SearchForm/SearchForm";
-import SearchResults from "./components/SearchResults/SearchResults";
-import { Incident } from "./types.d";
+import SearchForm from "../SearchForm/SearchForm";
+import SearchResults from "../SearchResults/SearchResults";
+import { Incident } from "../../types";
 
 const App = () => {
   const [incidents, setIncidents] = useState([] as Incident[]);
