@@ -4,6 +4,7 @@ import SearchResults from "../SearchResults/SearchResults";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { MaybeDate } from "../../types";
+import Header from "../Header/Header";
 
 interface Props extends RouteComponentProps {}
 
@@ -29,7 +30,7 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
     >
       <Grid container spacing={24}>
         <Grid item xs={12}>
-          <header>Police Department of Berlin</header>
+          <Header />
         </Grid>
         <Grid item xs={12}>
           <SearchForm
