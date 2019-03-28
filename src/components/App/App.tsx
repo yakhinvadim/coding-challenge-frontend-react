@@ -8,6 +8,8 @@ interface Props extends RouteComponentProps {}
 
 const App: React.FunctionComponent<Props> = ({ history }) => {
   const [textQuery, setTextQuery] = useState("");
+  const [dateFrom, handleDateFrom] = useState(new Date());
+  const [dateTo, handleDateTo] = useState(new Date());
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -31,6 +33,10 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
             onSubmit={handleSubmit}
             onTextQueryChange={handleTextQueryChange}
             textQuery={textQuery}
+            dateTo={dateTo}
+            dateFrom={dateFrom}
+            onDateFromChange={handleDateFrom}
+            onDateToChange={handleDateTo}
           />
         </Grid>
         <Grid item>

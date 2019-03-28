@@ -5,6 +5,8 @@ import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router } from "react-router-dom";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
+import dayjsUtils from "@date-io/dayjs";
 
 const theme = createMuiTheme({
   typography: {
@@ -15,7 +17,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Router>
     <MuiThemeProvider theme={theme}>
-      <App />
+      <MuiPickersUtilsProvider utils={dayjsUtils}>
+        <App />
+      </MuiPickersUtilsProvider>
     </MuiThemeProvider>
   </Router>,
   document.getElementById("root")
