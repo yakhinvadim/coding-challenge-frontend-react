@@ -1,36 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import IncidentCard from "../IncidentCard/IncidentCard";
 import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
+import { withRouter, RouteComponentProps } from "react-router";
+import queryString from "query-string";
 
-type Props = {
-  incidents: Incident[];
-};
+interface Props extends RouteComponentProps {}
 
-const Loading: React.FunctionComponent = () => {
-  return <div>loading...</div>;
-};
+const SearchResults: React.FunctionComponent<Props> = ({ location }) => {
+  const [incidents, setIncidents] = useState([] as Incident[]);
 
-const Incidents: React.FunctionComponent<Props> = ({ incidents }) => {
-  return (
-    <Grid container spacing={24} direction="column">
-      {incidents.map(incident => (
-        <Grid item>
-          <IncidentCard incident={incident} />
-        </Grid>
-      ))}
-    </Grid>
-  );
-};
+  useEffect(() => {
+    const parsedQueryString = queryString.parse(location.search);
+    const query = {
+      incident_type: "theft",
+      page: 1,
+      per_page: 10,
+      proximity: "Berlin",
+      query: parsedQueryString.query
+    };
 
-const SearchResults: React.FunctionComponent<Props> = ({ incidents }) => {
+    setIncidents([]);
+
+    fetch(
+      `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
+        query
+      )}`
+    )
+      .then(response => response.json())
+      .then(jsonResponse => {
+        setIncidents(jsonResponse.incidents);
+      });
+  }, [location]);
+
   return (
     <div>
       <div>total: {incidents.length}</div>
-      {incidents.length ? <Incidents incidents={incidents} /> : <Loading />}
+      {incidents.length ? (
+        <Grid container spacing={24} direction="column">
+          {incidents.map(incident => (
+            <Grid item>
+              <IncidentCard incident={incident} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <div>loading...</div>
+      )}
       <div>pagination</div>
     </div>
   );
 };
 
-export default SearchResults;
+export default withRouter(SearchResults);

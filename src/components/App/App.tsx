@@ -1,28 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import SearchResults from "../SearchResults/SearchResults";
-import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
 interface Props extends RouteComponentProps {}
 
 const App: React.FunctionComponent<Props> = ({ history }) => {
-  const [incidents, setIncidents] = useState([] as Incident[]);
   const [textQuery, setTextQuery] = useState("");
 
-  useEffect(() => {
-    fetch(
-      "https://bikewise.org:443/api/v2/incidents?incident_type=theft&page=1&per_page=10&proximity=Berlin"
-    )
-      .then(response => response.json())
-      .then(jsonResponse => {
-        setIncidents(jsonResponse.incidents);
-      });
-  }, []);
-
-  const handleSubmit = () => {
-    history.push(`?query=${textQuery}`);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    history.push(`/?query=${textQuery}`);
   };
 
   const handleTextQueryChange = (
@@ -45,7 +34,7 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
           />
         </Grid>
         <Grid item>
-          <SearchResults incidents={incidents} />
+          <SearchResults />
         </Grid>
       </Grid>
     </div>
