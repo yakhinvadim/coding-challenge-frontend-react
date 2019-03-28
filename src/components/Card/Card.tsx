@@ -1,6 +1,7 @@
 import React from "react";
 import { Incident } from "../../types.d";
 import Paper from "@material-ui/core/Paper";
+import bike from "./bike.svg";
 
 const MILLISECONDS_IN_ONE_SECOND = 1000;
 
@@ -11,8 +12,10 @@ type Props = {
 const Card: React.FunctionComponent<Props> = ({ incident }) => {
   return (
     <Paper>
-      {incident.media.image_url_thumb && (
+      {incident.media.image_url_thumb ? (
         <img src={incident.media.image_url_thumb} />
+      ) : (
+        <img src={bike} width={300} height={300} />
       )}
       <br />
       title: {incident.title}
