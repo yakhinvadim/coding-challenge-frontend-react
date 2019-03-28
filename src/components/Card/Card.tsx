@@ -1,27 +1,22 @@
 import React from "react";
+import { Incident } from "../../types.d";
 
 type Props = {
-  title: string;
-  description: string;
-  occurredAt: number;
-  updatedAt: number;
+  incident: Incident;
 };
 
-const Card: React.FunctionComponent<Props> = ({
-  title,
-  description,
-  occurredAt,
-  updatedAt
-}) => {
+const Card: React.FunctionComponent<Props> = ({ incident }) => {
   return (
     <div>
-      title: {title}
+      title: {incident.title}
       <br />
-      description: {description}
+      description: {incident.description}
       <br />
-      occuredAt: {occurredAt}
+      occured at: {incident.occurred_at}
       <br />
-      updatedAt: {updatedAt}
+      updated at: {incident.updated_at}
+      <br />
+      address: {incident.address}
       <br />
       <br />
     </div>

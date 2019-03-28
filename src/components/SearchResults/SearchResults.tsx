@@ -14,12 +14,7 @@ const Incidents: React.FunctionComponent<Props> = ({ incidents }) => {
   return (
     <>
       {incidents.map(incident => (
-        <Card
-          title={incident.title}
-          description={incident.description}
-          occurredAt={incident.occurred_at}
-          updatedAt={incident.updated_at}
-        />
+        <Card incident={incident} />
       ))}
     </>
   );
