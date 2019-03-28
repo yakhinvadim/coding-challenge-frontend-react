@@ -8,6 +8,10 @@ type Props = {
 const Card: React.FunctionComponent<Props> = ({ incident }) => {
   return (
     <div>
+      {incident.media.image_url_thumb && (
+        <img src={incident.media.image_url_thumb} />
+      )}
+      <br />
       title: {incident.title}
       <br />
       description: {incident.description}
