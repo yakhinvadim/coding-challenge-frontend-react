@@ -6,10 +6,13 @@ type Props = {
   incidents: Incident[];
 };
 
-const SearchResults: React.FunctionComponent<Props> = ({ incidents }) => {
+const Loading: React.FunctionComponent = () => {
+  return <div>loading...</div>;
+};
+
+const Incidents: React.FunctionComponent<Props> = ({ incidents }) => {
   return (
-    <div>
-      total: {incidents.length}
+    <>
       {incidents.map(incident => (
         <Card
           title={incident.title}
@@ -18,6 +21,15 @@ const SearchResults: React.FunctionComponent<Props> = ({ incidents }) => {
           updatedAt={incident.updated_at}
         />
       ))}
+    </>
+  );
+};
+
+const SearchResults: React.FunctionComponent<Props> = ({ incidents }) => {
+  return (
+    <div>
+      total: {incidents.length}
+      {incidents.length ? <Incidents incidents={incidents} /> : <Loading />}
       pagination
     </div>
   );
