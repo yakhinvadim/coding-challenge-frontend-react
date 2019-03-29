@@ -32,16 +32,17 @@ const SearchResults: React.FunctionComponent<Props> = ({
   const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
   const [isError, setIsError] = useState(false);
 
+  const parsedQuery = queryString.parse(location.search);
+
   const handlePageClick = (event: React.MouseEvent, offset: number) => {
-    const parsedQueryString = queryString.parse(location.search);
     const newQueryString = queryString.stringify({
-      ...parsedQueryString,
+      ...parsedQuery,
       page: offset / 10 + 1
     });
     history.push(`/?${newQueryString}`);
   };
 
-  const parsedpage = queryString.parse(location.search).page;
+  const parsedpage = parsedQuery.page;
   let page: number;
   if (parsedpage == null || Array.isArray(parsedpage)) {
     page = 1;
@@ -49,7 +50,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
     page = parseInt(parsedpage);
   }
 
-  const { textQuery, from, to } = queryString.parse(location.search);
+  const { textQuery, from, to } = parsedQuery;
 
   useEffect(() => {
     const queryBase = {
