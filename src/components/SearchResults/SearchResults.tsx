@@ -68,7 +68,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
     const allResultsQuery = {
       ...queryBase,
       page: 1,
-      per_page: 1000
+      per_page: 1000000
     };
 
     setPageIncidents(null);
@@ -119,15 +119,28 @@ const SearchResults: React.FunctionComponent<Props> = ({
     return <Incidents incidents={pageIncidents} />;
   };
 
+  const incidentsCount = allIncidents
+    ? `${allIncidents.length} cases found`
+    : "Counting cases...";
+
   return (
-    <div>
-      <div>total: {!allIncidents ? "..." : allIncidents.length}</div>
-      <Pagination />
+    <Grid container spacing={24}>
+      <Grid item xs={12} container justify="space-between" alignItems="center">
+        <Grid item>
+          <Pagination />
+        </Grid>
 
-      <List />
+        <Grid item>{incidentsCount}</Grid>
+      </Grid>
 
-      <Pagination />
-    </div>
+      <Grid item xs={12}>
+        <List />
+      </Grid>
+
+      <Grid item xs={12}>
+        <Pagination />
+      </Grid>
+    </Grid>
   );
 };
 
