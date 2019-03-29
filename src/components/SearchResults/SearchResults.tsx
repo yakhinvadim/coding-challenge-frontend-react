@@ -8,6 +8,8 @@ import Pagination from "material-ui-flat-pagination";
 
 const NoResults = () => <div>No results</div>;
 
+const Error = () => <div>Error</div>;
+
 const Loading = () => <div>Loading...</div>;
 
 const Incidents = ({ incidents }: { incidents: Incident[] }) => (
@@ -30,6 +32,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
 }) => {
   const [pageIncidents, setPageIncidents] = useState([] as Incident[] | null);
   const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
+  const [isError, setIsError] = useState(false);
 
   const parsedpage = queryString.parse(location.search).page;
   let page;
@@ -71,6 +74,9 @@ const SearchResults: React.FunctionComponent<Props> = ({
       .then(response => response.json())
       .then(jsonResponse => {
         setPageIncidents(jsonResponse.incidents);
+      })
+      .catch(error => {
+        setIsError(true);
       });
 
     fetch(
@@ -94,7 +100,9 @@ const SearchResults: React.FunctionComponent<Props> = ({
         onClick={onPageClick}
       />
 
-      {!pageIncidents ? (
+      {isError ? (
+        <Error />
+      ) : !pageIncidents ? (
         <Loading />
       ) : pageIncidents.length === 0 ? (
         <NoResults />
