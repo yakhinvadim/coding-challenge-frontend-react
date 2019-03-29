@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import SearchResults from "../SearchResults/SearchResults";
 import Grid from "@material-ui/core/Grid";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { MaybeDate } from "../../types";
 import Header from "../Header/Header";
-import queryString from "query-string";
+import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 
-interface Props extends RouteComponentProps {}
+const styles = createStyles({
+  wrapper: {
+    minWidth: 800,
+    maxWidth: 1000,
+    margin: "0 auto",
+    padding: 20
+  }
+});
 
-const App: React.FunctionComponent<Props> = ({ history }) => {
+interface Props extends WithStyles<typeof styles> {}
+
+const App: React.FunctionComponent<Props> = ({ classes }) => {
   return (
-    <div
-      style={{ minWidth: 800, maxWidth: 1000, margin: "0 auto", padding: 20 }}
-    >
+    <div className={classes.wrapper}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <Header />
@@ -31,4 +36,4 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
   );
 };
 
-export default withRouter(App);
+export default withStyles(styles)(App);

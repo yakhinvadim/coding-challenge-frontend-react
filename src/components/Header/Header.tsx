@@ -1,12 +1,27 @@
 import React from "react";
 import logo from "./logo.png";
 import { Typography } from "@material-ui/core";
+import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 
-const Header = () => {
+const styles = createStyles({
+  header: {
+    display: "flex",
+    alignItems: "center"
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginRight: 24
+  }
+});
+
+interface Props extends WithStyles<typeof styles> {}
+
+const Header: React.FunctionComponent<Props> = ({ classes }) => {
   return (
-    <header style={{ display: "flex", alignItems: "center" }}>
-      <img src={logo} alt="Logo" width={150} height={150} />
-      <div style={{ marginLeft: 24 }}>
+    <header className={classes.header}>
+      <img src={logo} alt="Logo" className={classes.logo} />
+      <div>
         <Typography variant="h3" gutterBottom>
           Police Department of Berlin
         </Typography>
@@ -16,4 +31,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withStyles(styles)(Header);
