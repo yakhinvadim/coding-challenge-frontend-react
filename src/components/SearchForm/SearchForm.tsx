@@ -1,18 +1,26 @@
 import React, { useState } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { InlineDatePicker } from "material-ui-pickers";
-import { MaybeDate } from "../../types";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import queryString from "query-string";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 
-const styles = createStyles({});
+import { MaybeDate } from "../../types";
+
+const styles = createStyles({
+  datePicker: {
+    minHeight: 80
+  },
+  button: {
+    marginTop: 12
+  }
+});
 
 interface Props extends RouteComponentProps, WithStyles<typeof styles> {}
 
-const SearchForm: React.FunctionComponent<Props> = ({ history }) => {
+const SearchForm: React.FunctionComponent<Props> = ({ history, classes }) => {
   const [textQuery, setTextQuery] = useState("");
   const [dateFrom, onDateFromChange] = useState(null as MaybeDate);
   const [dateTo, onDateToChange] = useState(null as MaybeDate);
@@ -42,7 +50,7 @@ const SearchForm: React.FunctionComponent<Props> = ({ history }) => {
         autoOk
         disableFuture
         keyboard
-        style={{ minHeight: 80 }}
+        className={classes.datePicker}
         format="DD.MM.YYYY"
         mask={value =>
           value
@@ -94,7 +102,7 @@ const SearchForm: React.FunctionComponent<Props> = ({ history }) => {
             variant="contained"
             color="primary"
             fullWidth
-            style={{ marginTop: 15 }}
+            className={classes.button}
           >
             Find Cases
           </Button>

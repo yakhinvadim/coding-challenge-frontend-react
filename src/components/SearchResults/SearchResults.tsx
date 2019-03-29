@@ -106,7 +106,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
     />
   );
 
-  const List = () => {
+  const IncidentsList = () => {
     if (isError) {
       return <Error />;
     }
@@ -134,7 +134,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
       </Grid>
 
       <Grid item xs={12}>
-        <List />
+        <IncidentsList />
       </Grid>
 
       <Grid item xs={12}>
