@@ -11,8 +11,8 @@ import getLocaleDateAndTime from "../../utils/getLocaleDateAndTime/getLocaleDate
 
 const styles = createStyles({
   media: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
     flex: "none"
   },
   card: {
