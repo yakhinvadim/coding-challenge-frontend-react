@@ -4,6 +4,7 @@ import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router";
 import queryString from "query-string";
+import Pagination from "material-ui-flat-pagination";
 
 const NoResults = () => <div>No results</div>;
 
@@ -19,49 +20,94 @@ const Incidents = ({ incidents }: { incidents: Incident[] }) => (
   </Grid>
 );
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps {
+  onPageClick: (event: React.MouseEvent, offset: number) => void;
+}
 
-const SearchResults: React.FunctionComponent<Props> = ({ location }) => {
-  const [incidents, setIncidents] = useState([] as Incident[] | null);
+const SearchResults: React.FunctionComponent<Props> = ({
+  location,
+  onPageClick
+}) => {
+  const [pageIncidents, setPageIncidents] = useState([] as Incident[] | null);
+  const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
+
+  const parsedpage = queryString.parse(location.search).page;
+  let page;
+  if (parsedpage == null || Array.isArray(parsedpage)) {
+    page = 1;
+  } else {
+    page = parseInt(parsedpage);
+  }
 
   useEffect(() => {
     const parsedQueryString = queryString.parse(location.search);
-    const query = {
+    const queryBase = {
       incident_type: "theft",
-      page: 1,
-      per_page: 10,
-      proximity: "Berlin",
+      proximity: "London",
       query: parsedQueryString.search,
       occurred_after: parsedQueryString.from,
       occurred_before: parsedQueryString.to
     };
 
-    setIncidents(null);
+    const pageResultsQuery = {
+      ...queryBase,
+      page: parsedQueryString.page,
+      per_page: 10
+    };
+
+    const allResultsQuery = {
+      ...queryBase,
+      page: 1,
+      per_page: 1000
+    };
+
+    setPageIncidents(null);
 
     fetch(
       `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
-        query
+        pageResultsQuery
       )}`
     )
       .then(response => response.json())
       .then(jsonResponse => {
-        setIncidents(jsonResponse.incidents);
+        setPageIncidents(jsonResponse.incidents);
+      });
+
+    fetch(
+      `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
+        allResultsQuery
+      )}`
+    )
+      .then(response => response.json())
+      .then(jsonResponse => {
+        setAllIncidents(jsonResponse.incidents);
       });
   }, [location]);
 
   return (
     <div>
-      <div>total: {!incidents ? "..." : incidents.length}</div>
+      <div>total: {!allIncidents ? "..." : allIncidents.length}</div>
+      <Pagination
+        limit={10}
+        offset={(page - 1) * 10}
+        total={allIncidents ? allIncidents.length : 10}
+        onClick={onPageClick}
+      />
 
-      {!incidents ? (
+      {!pageIncidents ? (
         <Loading />
-      ) : incidents.length === 0 ? (
+      ) : pageIncidents.length === 0 ? (
         <NoResults />
       ) : (
-        <Incidents incidents={incidents} />
+        <Incidents incidents={pageIncidents} />
       )}
 
-      <div>pagination</div>
+      <Pagination
+        limit={10}
+        offset={(page - 1) * 10}
+        total={allIncidents ? allIncidents.length : 10}
+        onClick={onPageClick}
+      />
     </div>
   );
 };

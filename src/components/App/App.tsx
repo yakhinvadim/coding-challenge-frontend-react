@@ -24,6 +24,15 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
     history.push(`/?${query}`);
   };
 
+  const handlePageClick = (event: React.MouseEvent, offset: number) => {
+    const parsedQueryString = queryString.parse(location.search);
+    const newQueryString = queryString.stringify({
+      ...parsedQueryString,
+      page: offset / 10 + 1
+    });
+    history.push(`/?${newQueryString}`);
+  };
+
   const handleTextQueryChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -50,7 +59,7 @@ const App: React.FunctionComponent<Props> = ({ history }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <SearchResults />
+          <SearchResults onPageClick={handlePageClick} />
         </Grid>
       </Grid>
     </div>
