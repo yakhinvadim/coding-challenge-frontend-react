@@ -4,7 +4,7 @@ import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router";
 import queryString from "query-string";
-import Pagination from "material-ui-flat-pagination";
+import MuiPagination from "material-ui-flat-pagination";
 
 const NoResults = () => <div>No results</div>;
 
@@ -22,20 +22,27 @@ const Incidents = ({ incidents }: { incidents: Incident[] }) => (
   </Grid>
 );
 
-interface Props extends RouteComponentProps {
-  onPageClick: (event: React.MouseEvent, offset: number) => void;
-}
+interface Props extends RouteComponentProps {}
 
 const SearchResults: React.FunctionComponent<Props> = ({
   location,
-  onPageClick
+  history
 }) => {
   const [pageIncidents, setPageIncidents] = useState([] as Incident[] | null);
   const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
   const [isError, setIsError] = useState(false);
 
+  const handlePageClick = (event: React.MouseEvent, offset: number) => {
+    const parsedQueryString = queryString.parse(location.search);
+    const newQueryString = queryString.stringify({
+      ...parsedQueryString,
+      page: offset / 10 + 1
+    });
+    history.push(`/?${newQueryString}`);
+  };
+
   const parsedpage = queryString.parse(location.search).page;
-  let page;
+  let page: number;
   if (parsedpage == null || Array.isArray(parsedpage)) {
     page = 1;
   } else {
@@ -90,32 +97,36 @@ const SearchResults: React.FunctionComponent<Props> = ({
       });
   }, [location]);
 
+  const Pagination = () => (
+    <MuiPagination
+      limit={10}
+      offset={(page - 1) * 10}
+      total={allIncidents ? allIncidents.length : 10}
+      onClick={handlePageClick}
+    />
+  );
+
+  const List = () => {
+    if (isError) {
+      return <Error />;
+    }
+    if (pageIncidents == null) {
+      return <Loading />;
+    }
+    if (pageIncidents.length === 0) {
+      return <NoResults />;
+    }
+    return <Incidents incidents={pageIncidents} />;
+  };
+
   return (
     <div>
       <div>total: {!allIncidents ? "..." : allIncidents.length}</div>
-      <Pagination
-        limit={10}
-        offset={(page - 1) * 10}
-        total={allIncidents ? allIncidents.length : 10}
-        onClick={onPageClick}
-      />
+      <Pagination />
 
-      {isError ? (
-        <Error />
-      ) : !pageIncidents ? (
-        <Loading />
-      ) : pageIncidents.length === 0 ? (
-        <NoResults />
-      ) : (
-        <Incidents incidents={pageIncidents} />
-      )}
+      <List />
 
-      <Pagination
-        limit={10}
-        offset={(page - 1) * 10}
-        total={allIncidents ? allIncidents.length : 10}
-        onClick={onPageClick}
-      />
+      <Pagination />
     </div>
   );
 };

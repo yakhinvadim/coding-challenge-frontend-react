@@ -1,32 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { InlineDatePicker } from "material-ui-pickers";
 import { MaybeDate } from "../../types";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import queryString from "query-string";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 const styles = createStyles({});
 
-interface Props extends WithStyles<typeof styles> {
-  onSubmit: (e: React.FormEvent) => void;
-  textQuery: string;
-  onTextQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  dateFrom: MaybeDate;
-  dateTo: MaybeDate;
-  onDateFromChange: (maybeDate: MaybeDate) => void;
-  onDateToChange: (maybeDate: MaybeDate) => void;
-}
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {}
 
-const SearchForm: React.FunctionComponent<Props> = ({
-  onSubmit,
-  textQuery,
-  onTextQueryChange,
-  dateFrom,
-  dateTo,
-  onDateFromChange,
-  onDateToChange
-}) => {
+const SearchForm: React.FunctionComponent<Props> = ({ history }) => {
+  const [textQuery, setTextQuery] = useState("");
+  const [dateFrom, onDateFromChange] = useState(null as MaybeDate);
+  const [dateTo, onDateToChange] = useState(null as MaybeDate);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const query = queryString.stringify({
+      search: textQuery,
+      from: dateFrom ? dateFrom.valueOf() / 1000 : "",
+      to: dateTo ? dateTo.valueOf() / 1000 : ""
+    });
+
+    history.push(`/?${query}`);
+  };
+
+  const handleTextQueryChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setTextQuery(event.target.value);
+  };
+
   const DatePickerTemplate = (props: any) => {
     return (
       <InlineDatePicker
@@ -47,7 +55,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <Grid
         container
         spacing={24}
@@ -59,7 +67,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             id="text-query"
             label="Search"
             value={textQuery}
-            onChange={onTextQueryChange}
+            onChange={handleTextQueryChange}
             placeholder="Cannondale"
             fullWidth
           />
@@ -96,4 +104,4 @@ const SearchForm: React.FunctionComponent<Props> = ({
   );
 };
 
-export default withStyles(styles)(SearchForm);
+export default withStyles(styles)(withRouter(SearchForm));
