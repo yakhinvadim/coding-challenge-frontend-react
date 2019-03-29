@@ -1,34 +1,43 @@
 import React from "react";
-import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
+import {
+  withStyles,
+  WithStyles,
+  createStyles,
+  Theme
+} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import CardMedia from "@material-ui/core/CardMedia";
-import Card from "@material-ui/core/Card";
 
 import { Incident } from "../../types";
-import bike from "./bike.svg";
+import defaultBikeImage from "./bike.svg";
 import getLocaleDateAndTime from "../../utils/getLocaleDateAndTime/getLocaleDateAndTime";
+import Paper from "@material-ui/core/Paper";
 
-const styles = createStyles({
-  media: {
-    width: 200,
-    height: 200,
-    flex: "none"
-  },
-  card: {
-    display: "flex"
-  },
-  cardContent: {
-    flex: "auto",
-    display: "flex",
-    flexDirection: "column"
-  },
-
-  cardFooter: {
-    marginTop: "auto",
-    alignSelf: "flex-end"
-  }
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    imageContainer: {
+      width: 200,
+      height: 200,
+      flex: "none",
+      backgroundImage: `url(${defaultBikeImage})`,
+      backgroundSize: 200
+    },
+    image: {
+      height: "100%"
+    },
+    card: {
+      display: "flex"
+    },
+    cardContent: {
+      flex: "auto",
+      display: "flex",
+      flexDirection: "column",
+      padding: theme.spacing.unit * 2
+    },
+    cardFooter: {
+      marginTop: "auto",
+      alignSelf: "flex-end"
+    }
+  });
 
 interface Props extends WithStyles<typeof styles> {
   incident: Incident;
@@ -39,12 +48,13 @@ const IncidentCard: React.FunctionComponent<Props> = ({
   classes
 }) => {
   return (
-    <Card className={classes.card}>
-      <CardMedia
-        image={incident.media.image_url_thumb || bike}
-        className={classes.media}
-      />
-      <CardContent className={classes.cardContent}>
+    <Paper className={classes.card}>
+      <div className={classes.imageContainer}>
+        {incident.media.image_url_thumb && (
+          <img src={incident.media.image_url_thumb} className={classes.image} />
+        )}
+      </div>
+      <div className={classes.cardContent}>
         <Typography variant="h6" gutterBottom>
           {incident.title}
         </Typography>
@@ -60,8 +70,8 @@ const IncidentCard: React.FunctionComponent<Props> = ({
         <Typography variant="body2" className={classes.cardFooter}>
           Reported: {getLocaleDateAndTime(incident.updated_at)}
         </Typography>
-      </CardContent>
-    </Card>
+      </div>
+    </Paper>
   );
 };
 
