@@ -50,15 +50,15 @@ const SearchResults: React.FunctionComponent<Props> = ({
     page = parseInt(parsedpage);
   }
 
-  const { textQuery, from, to } = parsedQuery;
+  const { textQuery, from: dateFrom, to: dateTo } = parsedQuery;
 
   useEffect(() => {
     const queryBase = {
       incident_type: "theft",
       proximity: "London",
       query: textQuery,
-      occurred_after: from,
-      occurred_before: to
+      occurred_after: dateFrom,
+      occurred_before: dateTo
     };
 
     const pageResultsQuery = {
@@ -97,7 +97,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
       .then(jsonResponse => {
         setAllIncidents(jsonResponse.incidents);
       });
-  }, [textQuery, from, to]);
+  }, [textQuery, dateFrom, dateTo]);
 
   useEffect(() => {
     if (allIncidents) {
