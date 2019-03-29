@@ -1,9 +1,10 @@
 import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
+
 import SearchForm from "../SearchForm/SearchForm";
 import SearchResults from "../SearchResults/SearchResults";
-import Grid from "@material-ui/core/Grid";
 import Header from "../Header/Header";
-import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 
 const styles = createStyles({
   wrapper: {

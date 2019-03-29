@@ -1,7 +1,8 @@
 import React from "react";
-import logo from "./logo.png";
 import { Typography } from "@material-ui/core";
 import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
+
+import logo from "./logo.png";
 
 const styles = createStyles({
   header: {

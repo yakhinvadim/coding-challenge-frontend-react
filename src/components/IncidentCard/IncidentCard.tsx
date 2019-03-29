@@ -1,21 +1,13 @@
 import React from "react";
-import { Incident } from "../../types";
-import Card from "@material-ui/core/Card";
-import bike from "./bike.svg";
-import CardMedia from "@material-ui/core/CardMedia";
 import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import CardMedia from "@material-ui/core/CardMedia";
+import Card from "@material-ui/core/Card";
 
-const getLocaleDateAndTime = (secondsTimestamp: number) => {
-  return new Date(secondsTimestamp * 1000).toLocaleString([], {
-    minute: "numeric",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric"
-  });
-};
+import { Incident } from "../../types";
+import bike from "./bike.svg";
+import getLocaleDateAndTime from "../../utils/getLocaleDateAndTime/getLocaleDateAndTime";
 
 const styles = createStyles({
   media: {
