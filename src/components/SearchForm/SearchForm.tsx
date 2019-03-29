@@ -30,13 +30,15 @@ const SearchForm: React.FunctionComponent<Props> = ({
   const DatePickerTemplate = (props: any) => {
     return (
       <InlineDatePicker
+        clearable
+        autoOk
         disableFuture
         keyboard
-        disableOpenOnEnter
-        format="DD/MM/YYYY"
+        style={{ minHeight: 80 }}
+        format="DD.MM.YYYY"
         mask={value =>
           value
-            ? [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/]
+            ? [/\d/, /\d/, ".", /\d/, /\d/, ".", /\d/, /\d/, /\d/, /\d/]
             : []
         }
         {...props}
@@ -49,7 +51,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
       <Grid
         container
         spacing={24}
-        alignItems="flex-end"
+        alignItems="flex-start"
         justify="space-between"
       >
         <Grid item xs={4}>
@@ -67,7 +69,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             value={dateFrom}
             onChange={onDateFromChange}
             label="From"
-            placeholder="31/12/2017"
+            placeholder="31.12.2017"
           />
         </Grid>
         <Grid item xs>
@@ -75,11 +77,17 @@ const SearchForm: React.FunctionComponent<Props> = ({
             value={dateTo}
             onChange={onDateToChange}
             label="To"
-            placeholder="31/12/2018"
+            placeholder="31.12.2018"
           />
         </Grid>
         <Grid item xs>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            style={{ marginTop: 15 }}
+          >
             Find Cases
           </Button>
         </Grid>
