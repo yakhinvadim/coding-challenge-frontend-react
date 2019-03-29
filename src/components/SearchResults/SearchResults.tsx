@@ -49,20 +49,21 @@ const SearchResults: React.FunctionComponent<Props> = ({
     page = parseInt(parsedpage);
   }
 
+  const { textQuery, from, to } = queryString.parse(location.search);
+
   useEffect(() => {
-    const parsedQueryString = queryString.parse(location.search);
     const queryBase = {
       incident_type: "theft",
       proximity: "London",
-      query: parsedQueryString.search,
-      occurred_after: parsedQueryString.from,
-      occurred_before: parsedQueryString.to
+      query: textQuery,
+      occurred_after: from,
+      occurred_before: to
     };
 
     const pageResultsQuery = {
       ...queryBase,
-      page: parsedQueryString.page,
-      per_page: 10
+      per_page: 10,
+      page
     };
 
     const allResultsQuery = {
@@ -82,7 +83,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
       .then(jsonResponse => {
         setPageIncidents(jsonResponse.incidents);
       })
-      .catch(error => {
+      .catch(() => {
         setIsError(true);
       });
 
@@ -95,7 +96,13 @@ const SearchResults: React.FunctionComponent<Props> = ({
       .then(jsonResponse => {
         setAllIncidents(jsonResponse.incidents);
       });
-  }, [location]);
+  }, [textQuery, from, to]);
+
+  useEffect(() => {
+    if (allIncidents) {
+      setPageIncidents(allIncidents.slice((page - 1) * 10, page * 10));
+    }
+  }, [page, allIncidents]);
 
   const Pagination = () => (
     <MuiPagination
