@@ -29,9 +29,9 @@ const SearchForm: React.FunctionComponent<Props> = ({ history, classes }) => {
     event.preventDefault();
 
     const query = queryString.stringify({
-      search: textQuery,
-      from: dateFrom ? dateFrom.valueOf() / 1000 : "",
-      to: dateTo ? dateTo.valueOf() / 1000 : ""
+      dateFrom: dateFrom ? dateFrom.valueOf() / 1000 : "",
+      dateTo: dateTo ? dateTo.valueOf() / 1000 : "",
+      textQuery
     });
 
     history.push(`/?${query}`);

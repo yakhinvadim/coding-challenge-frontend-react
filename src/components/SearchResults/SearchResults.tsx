@@ -50,7 +50,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
     page = parseInt(parsedpage);
   }
 
-  const { textQuery, from: dateFrom, to: dateTo } = parsedQuery;
+  const { textQuery, dateFrom, dateTo } = parsedQuery;
 
   useEffect(() => {
     const queryBase = {
