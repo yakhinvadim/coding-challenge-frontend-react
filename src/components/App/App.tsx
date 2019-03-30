@@ -8,6 +8,9 @@ import SearchResults from "../SearchResults/SearchResults";
 import Header from "../Header/Header";
 
 const styles = createStyles({
+  "@global body": {
+    overflowY: "overlay" as any // unofficial webkit value
+  },
   wrapper: {
     minWidth: 800,
     maxWidth: 1000,

@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router";
 import queryString from "query-string";
 import MuiPagination from "material-ui-flat-pagination";
+import { Typography } from "@material-ui/core";
 
 const NoResults = () => <div>No results</div>;
 
@@ -142,7 +143,9 @@ const SearchResults: React.FunctionComponent<Props> = ({
           <Pagination />
         </Grid>
 
-        <Grid item>{incidentsCount}</Grid>
+        <Grid item>
+          <Typography variant="body1">{incidentsCount}</Typography>
+        </Grid>
       </Grid>
 
       <Grid item xs={12}>
