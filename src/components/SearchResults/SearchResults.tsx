@@ -109,7 +109,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
     <MuiPagination
       limit={10}
       offset={(page - 1) * 10}
-      total={allIncidents ? allIncidents.length : 10}
+      total={allIncidents ? allIncidents.length : page * 10}
       onClick={handlePageClick}
     />
   );
