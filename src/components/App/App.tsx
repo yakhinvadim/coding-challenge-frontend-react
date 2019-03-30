@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
 
+import { Incident } from "../../types";
 import SearchForm from "../SearchForm/SearchForm";
 import SearchResults from "../SearchResults/SearchResults";
 import Header from "../Header/Header";
@@ -18,6 +19,8 @@ const styles = createStyles({
 interface Props extends WithStyles<typeof styles> {}
 
 const App: React.FunctionComponent<Props> = ({ classes }) => {
+  const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
+
   return (
     <div className={classes.wrapper}>
       <Grid container spacing={24}>
@@ -26,11 +29,14 @@ const App: React.FunctionComponent<Props> = ({ classes }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <SearchForm />
+          <SearchForm setAllIncidents={setAllIncidents} />
         </Grid>
 
         <Grid item xs={12}>
-          <SearchResults />
+          <SearchResults
+            allIncidents={allIncidents}
+            setAllIncidents={setAllIncidents}
+          />
         </Grid>
       </Grid>
     </div>

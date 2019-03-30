@@ -22,14 +22,18 @@ const Incidents = ({ incidents }: { incidents: Incident[] }) => (
   </Grid>
 );
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps {
+  allIncidents: Incident[] | null;
+  setAllIncidents: (incidents: Incident[] | null) => void;
+}
 
 const SearchResults: React.FunctionComponent<Props> = ({
   location,
-  history
+  history,
+  allIncidents,
+  setAllIncidents
 }) => {
   const [pageIncidents, setPageIncidents] = useState([] as Incident[] | null);
-  const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
   const [isError, setIsError] = useState(false);
 
   const parsedQuery = queryString.parse(location.search);
