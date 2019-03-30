@@ -53,13 +53,18 @@ const SearchForm: React.FunctionComponent<Props> = ({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const query = queryString.stringify({
-      dateFrom: dateFrom ? dateFrom.getTime() / 1000 : "",
-      dateTo: dateTo ? dateTo.getTime() / 1000 : "",
-      textQuery
-    });
+    let queryObj: { [key: string]: string } = {};
+    if (dateFrom) {
+      queryObj.dateFrom = String(dateFrom.getTime() / 1000);
+    }
+    if (dateTo) {
+      queryObj.dateTo = String(dateTo.getTime() / 1000);
+    }
+    if (textQuery) {
+      queryObj.textQuery = textQuery;
+    }
 
-    history.push(`/?${query}`);
+    history.push(`/?${queryString.stringify(queryObj)}`);
     setAllIncidents(null);
   };
 
