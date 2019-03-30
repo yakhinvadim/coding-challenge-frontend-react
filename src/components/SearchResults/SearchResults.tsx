@@ -7,11 +7,23 @@ import queryString from "query-string";
 import MuiPagination from "material-ui-flat-pagination";
 import { Typography } from "@material-ui/core";
 
-const NoResults = () => <div>No results</div>;
+const NoResults = () => (
+  <div>
+    <Typography variant="h5">No results</Typography>
+  </div>
+);
 
-const Error = () => <div>Error</div>;
+const Error = () => (
+  <div>
+    <Typography variant="h5">Error. Please, reload the page</Typography>
+  </div>
+);
 
-const Loading = () => <div>Loading...</div>;
+const Loading = () => (
+  <div>
+    <Typography variant="h5">Loading...</Typography>
+  </div>
+);
 
 const Incidents = ({ incidents }: { incidents: Incident[] }) => (
   <Grid container spacing={24} direction="column">
