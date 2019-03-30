@@ -27,16 +27,35 @@ const SearchForm: React.FunctionComponent<Props> = ({
   classes,
   setAllIncidents
 }) => {
-  const [textQuery, setTextQuery] = useState("");
-  const [dateFrom, onDateFromChange] = useState(null as Date | null);
-  const [dateTo, onDateToChange] = useState(null as Date | null);
+  const {
+    textQuery: parsedTextQuery,
+    dateFrom: parsedDateFrom,
+    dateTo: parsedDateTo
+  } = queryString.parse(location.search);
+
+  const initialTextQuery =
+    typeof parsedTextQuery === "string" ? parsedTextQuery : "";
+
+  const initialDateFrom =
+    typeof parsedDateFrom === "string"
+      ? new Date(Number(parsedDateFrom) * 1000) // TODO handle wrong date
+      : null;
+
+  const initialDateTo =
+    typeof parsedDateTo === "string"
+      ? new Date(Number(parsedDateTo) * 1000) // TODO handle wrong date
+      : null;
+
+  const [textQuery, setTextQuery] = useState(initialTextQuery);
+  const [dateFrom, onDateFromChange] = useState(initialDateFrom);
+  const [dateTo, onDateToChange] = useState(initialDateTo);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const query = queryString.stringify({
-      dateFrom: dateFrom ? dateFrom.valueOf() / 1000 : "",
-      dateTo: dateTo ? dateTo.valueOf() / 1000 : "",
+      dateFrom: dateFrom ? dateFrom.getTime() / 1000 : "",
+      dateTo: dateTo ? dateTo.getTime() / 1000 : "",
       textQuery
     });
 
