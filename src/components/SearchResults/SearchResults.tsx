@@ -59,13 +59,9 @@ const SearchResults: React.FunctionComponent<Props> = ({
     history.push(`/?${newQueryString}`);
   };
 
-  const parsedpage = parsedQuery.page;
-  let page: number;
-  if (parsedpage == null || Array.isArray(parsedpage)) {
-    page = 1;
-  } else {
-    page = parseInt(parsedpage);
-  }
+  const parsedPage = parsedQuery.page;
+  const page =
+    parsedPage == null || Array.isArray(parsedPage) ? 1 : parseInt(parsedPage);
 
   const { textQuery, dateFrom, dateTo } = parsedQuery;
 
