@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MuiPickersUtilsProvider } from "material-ui-pickers";
-import dayjsUtils from "@date-io/dayjs";
+import DateFnsUtils from "@date-io/date-fns";
 
 import App from "./components/App/App";
 
@@ -18,7 +18,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Router>
     <MuiThemeProvider theme={theme}>
-      <MuiPickersUtilsProvider utils={dayjsUtils}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <App />
       </MuiPickersUtilsProvider>
     </MuiThemeProvider>

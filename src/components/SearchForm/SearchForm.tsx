@@ -58,7 +58,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
         disableFuture
         keyboard
         className={classes.datePicker}
-        format="DD.MM.YYYY"
+        format="dd.MM.yyyy"
         mask={value =>
           value
             ? [/\d/, /\d/, ".", /\d/, /\d/, ".", /\d/, /\d/, /\d/, /\d/]
