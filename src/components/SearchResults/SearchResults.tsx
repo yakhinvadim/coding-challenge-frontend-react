@@ -7,6 +7,9 @@ import queryString from "query-string";
 import MuiPagination from "material-ui-flat-pagination";
 import { Typography } from "@material-ui/core";
 
+const ITEMS_PER_PAGE = 10;
+const HUGE_NUMBER = 1000000;
+
 const NoResults = () => (
   <div>
     <Typography variant="h5">No results</Typography>
@@ -54,7 +57,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
   const handlePageClick = (event: React.MouseEvent, offset: number) => {
     const newQueryString = queryString.stringify({
       ...parsedQuery,
-      page: offset / 10 + 1
+      page: offset / ITEMS_PER_PAGE + 1
     });
     history.push(`/?${newQueryString}`);
   };
@@ -76,14 +79,14 @@ const SearchResults: React.FunctionComponent<Props> = ({
 
     const pageResultsQuery = {
       ...queryBase,
-      per_page: 10,
+      per_page: ITEMS_PER_PAGE,
       page
     };
 
     const allResultsQuery = {
       ...queryBase,
       page: 1,
-      per_page: 1000000
+      per_page: HUGE_NUMBER
     };
 
     setPageIncidents(null);
@@ -114,15 +117,17 @@ const SearchResults: React.FunctionComponent<Props> = ({
 
   useEffect(() => {
     if (allIncidents) {
-      setPageIncidents(allIncidents.slice((page - 1) * 10, page * 10));
+      setPageIncidents(
+        allIncidents.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
+      );
     }
   }, [page, allIncidents]);
 
   const Pagination = () => (
     <MuiPagination
-      limit={10}
-      offset={(page - 1) * 10}
-      total={allIncidents ? allIncidents.length : page * 10}
+      limit={ITEMS_PER_PAGE}
+      offset={(page - 1) * ITEMS_PER_PAGE}
+      total={allIncidents ? allIncidents.length : page * ITEMS_PER_PAGE}
       onClick={handlePageClick}
     />
   );
