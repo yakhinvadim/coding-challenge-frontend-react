@@ -35,7 +35,8 @@ const styles = (theme: Theme) =>
     },
     cardFooter: {
       marginTop: "auto",
-      alignSelf: "flex-end"
+      alignSelf: "flex-end",
+      fontStyle: "italic"
     }
   });
 
@@ -67,7 +68,7 @@ const IncidentCard: React.FunctionComponent<Props> = ({
           {getLocaleDateAndTime(incident.occurred_at)} — {incident.address}
         </Typography>
 
-        <Typography variant="body2" className={classes.cardFooter}>
+        <Typography variant="caption" className={classes.cardFooter}>
           Reported: {getLocaleDateAndTime(incident.updated_at)}
         </Typography>
       </div>
