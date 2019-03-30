@@ -112,6 +112,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             onChange={onDateFromChange}
             label="From"
             placeholder="31.12.2017"
+            maxDate={dateTo}
           />
         </Grid>
         <Grid item xs>
@@ -120,6 +121,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             onChange={onDateToChange}
             label="To"
             placeholder="31.12.2018"
+            minDate={dateFrom}
           />
         </Grid>
         <Grid item xs>
