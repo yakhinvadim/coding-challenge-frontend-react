@@ -5,9 +5,8 @@ import { createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 import { InlineDatePicker } from "material-ui-pickers";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import queryString from "query-string";
-
-import { Incident } from "../../types";
+import getUrlParams from "../../utils/getUrlParams";
+import composeQueryString from "../../utils/composeQueryString";
 
 const styles = createStyles({
   datePicker: {
@@ -18,54 +17,23 @@ const styles = createStyles({
   }
 });
 
-interface Props extends RouteComponentProps, WithStyles<typeof styles> {
-  setAllIncidents: (incidents: Incident[] | null) => void;
-}
+interface Props extends RouteComponentProps, WithStyles<typeof styles> {}
 
-const SearchForm: React.FunctionComponent<Props> = ({
-  history,
-  classes,
-  setAllIncidents
-}) => {
-  const {
-    textQuery: parsedTextQuery,
-    dateFrom: parsedDateFrom,
-    dateTo: parsedDateTo
-  } = queryString.parse(location.search);
-
-  const initialTextQuery =
-    typeof parsedTextQuery === "string" ? parsedTextQuery : "";
-
-  const initialDateFrom =
-    typeof parsedDateFrom === "string"
-      ? new Date(Number(parsedDateFrom) * 1000) // TODO handle wrong date
-      : null;
-
-  const initialDateTo =
-    typeof parsedDateTo === "string"
-      ? new Date(Number(parsedDateTo) * 1000) // TODO handle wrong date
-      : null;
-
-  const [textQuery, setTextQuery] = useState(initialTextQuery);
-  const [dateFrom, onDateFromChange] = useState(initialDateFrom);
-  const [dateTo, onDateToChange] = useState(initialDateTo);
+const SearchForm: React.FunctionComponent<Props> = ({ history, classes }) => {
+  const { urlTextQuery, urlDateFrom, urlDateTo } = getUrlParams();
+  const [textQuery, setTextQuery] = useState(urlTextQuery);
+  const [dateFrom, onDateFromChange] = useState(urlDateFrom);
+  const [dateTo, onDateToChange] = useState(urlDateTo);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
-    let queryObj: { [key: string]: string } = {};
-    if (dateFrom) {
-      queryObj.dateFrom = String(dateFrom.getTime() / 1000);
+    if (
+      urlTextQuery !== textQuery ||
+      urlDateFrom !== dateFrom ||
+      urlDateTo !== dateTo
+    ) {
+      history.push(`/?${composeQueryString({ textQuery, dateFrom, dateTo })}`);
     }
-    if (dateTo) {
-      queryObj.dateTo = String(dateTo.getTime() / 1000);
-    }
-    if (textQuery) {
-      queryObj.textQuery = textQuery;
-    }
-
-    history.push(`/?${queryString.stringify(queryObj)}`);
-    setAllIncidents(null);
   };
 
   const handleTextQueryChange = (
@@ -111,6 +79,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             fullWidth
           />
         </Grid>
+
         <Grid item xs>
           <DatePickerTemplate
             value={dateFrom}
@@ -120,6 +89,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             maxDate={dateTo}
           />
         </Grid>
+
         <Grid item xs>
           <DatePickerTemplate
             value={dateTo}
@@ -129,6 +99,7 @@ const SearchForm: React.FunctionComponent<Props> = ({
             minDate={dateFrom}
           />
         </Grid>
+
         <Grid item xs>
           <Button
             type="submit"
