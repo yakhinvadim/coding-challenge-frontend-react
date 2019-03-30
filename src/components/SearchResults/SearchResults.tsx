@@ -11,34 +11,6 @@ import getUrlParams from "../../utils/getUrlParams";
 import { ITEMS_PER_PAGE } from "../../constants/constants";
 import useIncidents from "../../hooks/useIncidents";
 
-const NoResults = () => (
-  <div>
-    <Typography variant="h5">No results</Typography>
-  </div>
-);
-
-const Error = () => (
-  <div>
-    <Typography variant="h5">Error. Please, reload the page</Typography>
-  </div>
-);
-
-const Loading = () => (
-  <div>
-    <Typography variant="h5">Loading...</Typography>
-  </div>
-);
-
-const Incidents = ({ incidents }: { incidents: Incident[] }) => (
-  <Grid container spacing={24} direction="column">
-    {incidents.map(incident => (
-      <Grid item key={incident.id}>
-        <IncidentCard incident={incident} />
-      </Grid>
-    ))}
-  </Grid>
-);
-
 interface Props extends RouteComponentProps {}
 
 const SearchResults: React.FunctionComponent<Props> = ({
@@ -74,17 +46,25 @@ const SearchResults: React.FunctionComponent<Props> = ({
     />
   );
 
-  const IncidentsList = () => {
+  const IncidentsArea = () => {
     if (isError) {
-      return <Error />;
+      return <Typography variant="h5">Error</Typography>;
     }
     if (pageIncidents == null) {
-      return <Loading />;
+      return <Typography variant="h5">Loading...</Typography>;
     }
     if (pageIncidents.length === 0) {
-      return <NoResults />;
+      return <Typography variant="h5">No results</Typography>;
     }
-    return <Incidents incidents={pageIncidents} />;
+    return (
+      <Grid container spacing={24} direction="column">
+        {pageIncidents.map(incident => (
+          <Grid item key={incident.id}>
+            <IncidentCard incident={incident} />
+          </Grid>
+        ))}
+      </Grid>
+    );
   };
 
   return (
@@ -100,7 +80,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
       </Grid>
 
       <Grid item xs={12}>
-        <IncidentsList />
+        <IncidentsArea />
       </Grid>
 
       <Grid item xs={12}>
