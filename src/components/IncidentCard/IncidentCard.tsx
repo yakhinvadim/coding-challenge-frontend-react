@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { Incident } from "../../types";
 import defaultBikeImage from "./bike.svg";
-import getLocaleDateAndTime from "../../utils/getLocaleDateAndTime/getLocaleDateAndTime";
+import getLocaleDateAndTime from "../../utils/getLocaleDateAndTime";
 import Paper from "@material-ui/core/Paper";
 
 const styles = (theme: Theme) =>
