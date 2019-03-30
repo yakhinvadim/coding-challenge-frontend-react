@@ -20,5 +20,3 @@ export interface Incident {
   type: string;
   type_properties: null;
 }
-
-export type MaybeDate = Date | null;

@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import queryString from "query-string";
 
-import { Incident, MaybeDate } from "../../types";
+import { Incident } from "../../types";
 
 const styles = createStyles({
   datePicker: {
@@ -28,8 +28,8 @@ const SearchForm: React.FunctionComponent<Props> = ({
   setAllIncidents
 }) => {
   const [textQuery, setTextQuery] = useState("");
-  const [dateFrom, onDateFromChange] = useState(null as MaybeDate);
-  const [dateTo, onDateToChange] = useState(null as MaybeDate);
+  const [dateFrom, onDateFromChange] = useState(null as Date | null);
+  const [dateTo, onDateToChange] = useState(null as Date | null);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
