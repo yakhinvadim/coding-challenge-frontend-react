@@ -145,7 +145,9 @@ const SearchResults: React.FunctionComponent<Props> = ({
   };
 
   const incidentsCount = allIncidents
-    ? `${allIncidents.length} cases found`
+    ? `${allIncidents.length} ${
+        allIncidents.length === 1 ? "case" : "cases"
+      } found`
     : "Counting cases...";
 
   return (
