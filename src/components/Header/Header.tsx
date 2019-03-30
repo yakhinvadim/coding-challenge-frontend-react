@@ -21,7 +21,9 @@ interface Props extends WithStyles<typeof styles> {}
 const Header: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <header className={classes.header}>
-      <img src={logo} alt="Logo" className={classes.logo} />
+      <a href="/">
+        <img src={logo} alt="Logo" className={classes.logo} />
+      </a>
       <div>
         <Typography variant="h3" gutterBottom>
           Police Department of Berlin
