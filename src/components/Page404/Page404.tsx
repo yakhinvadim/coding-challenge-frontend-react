@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../Header/Header";
 import Wrapper from "../Wrapper/Wrapper";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
