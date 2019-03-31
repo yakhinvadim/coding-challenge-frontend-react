@@ -15,7 +15,7 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <Router>
+  <Router basename="/coding-challenge-frontend-react/">
     <MuiThemeProvider theme={theme}>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <>
