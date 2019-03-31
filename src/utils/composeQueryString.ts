@@ -1,5 +1,5 @@
-import { MILLISECONDS_IN_SECOND } from "../constants/constants";
 import queryString from "query-string";
+import { getUnixTime } from "date-fns/esm";
 
 const composeQueryString = ({
   dateFrom,
@@ -12,10 +12,10 @@ const composeQueryString = ({
 }) => {
   let queryObj: { [key: string]: string } = {};
   if (dateFrom) {
-    queryObj.dateFrom = String(dateFrom.getTime() / MILLISECONDS_IN_SECOND);
+    queryObj.dateFrom = getUnixTime(dateFrom).toString();
   }
   if (dateTo) {
-    queryObj.dateTo = String(dateTo.getTime() / MILLISECONDS_IN_SECOND);
+    queryObj.dateTo = getUnixTime(dateTo).toString();
   }
   if (textQuery) {
     queryObj.textQuery = textQuery;

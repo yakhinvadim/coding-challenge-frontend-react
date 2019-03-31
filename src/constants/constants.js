@@ -1,4 +1,2 @@
 export const ITEMS_PER_PAGE = 10;
 export const INFINITE_ITEMS_PER_PAGE = 1000000;
-
-export const MILLISECONDS_IN_SECOND = 1000;

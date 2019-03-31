@@ -1,5 +1,5 @@
-import { MILLISECONDS_IN_SECOND } from "../constants/constants";
 import queryString from "query-string";
+import { fromUnixTime } from "date-fns/esm";
 
 const getUrlParams = () => {
   const parsedQuery = queryString.parse(location.search);
@@ -8,12 +8,12 @@ const getUrlParams = () => {
 
   const urlDateFrom =
     typeof parsedQuery.dateFrom === "string"
-      ? new Date(parseInt(parsedQuery.dateFrom) * MILLISECONDS_IN_SECOND)
+      ? fromUnixTime(parseInt(parsedQuery.dateFrom))
       : null;
 
   const urlDateTo =
     typeof parsedQuery.dateTo === "string"
-      ? new Date(parseInt(parsedQuery.dateTo) * MILLISECONDS_IN_SECOND)
+      ? fromUnixTime(parseInt(parsedQuery.dateTo))
       : null;
 
   const urlTextQuery =
