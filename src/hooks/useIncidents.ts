@@ -3,7 +3,8 @@ import { Incident, Query } from "../types";
 import queryString from "query-string";
 import {
   ITEMS_PER_PAGE,
-  INFINITE_ITEMS_PER_PAGE
+  INFINITE_ITEMS_PER_PAGE,
+  bikeWiseApi
 } from "../constants/constants";
 import getUrlParams from "../utils/getUrlParams";
 
@@ -37,11 +38,7 @@ const useIncidents = () => {
     };
 
     const fetchIncidents = (query: any) =>
-      fetch(
-        `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
-          query
-        )}`
-      )
+      fetch(`${bikeWiseApi}/incidents?${queryString.stringify(query)}`)
         .then(response => response.json())
         .then(json => json.incidents)
         .catch(setError);
