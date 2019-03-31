@@ -21,7 +21,7 @@ interface Props extends WithStyles<typeof styles> {}
 const Header: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <header className={classes.header}>
-      <a href="/">
+      <a href="/coding-challenge-frontend-react/">
         <img src={logo} alt="Logo" className={classes.logo} />
       </a>
       <div>
