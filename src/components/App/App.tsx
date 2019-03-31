@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import PageCase from "../PageCase/PageCase";
 import PageIndex from "../PageIndex/PageIndex";
 import Page404 from "../Page404/Page404";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 const styles = {
   "@global body": {
@@ -13,11 +13,11 @@ const styles = {
 
 const App = () => {
   return (
-    <>
+    <Switch>
       <Route path="/" exact component={PageIndex} />
       <Route path="/case/:id" component={PageCase} />
       <Route component={Page404} />
-    </>
+    </Switch>
   );
 };
 
