@@ -20,3 +20,20 @@ export interface Incident {
   type: string;
   type_properties: null;
 }
+
+export interface Query {
+  page?: number;
+  per_page?: number;
+  occurred_before?: number;
+  occurred_after?: number;
+  incident_type?:
+    | "crash"
+    | "hazard"
+    | "theft"
+    | "unconfirmed"
+    | "infrastructure_issue"
+    | "chop_shop";
+  proximity?: string;
+  proximity_square?: number;
+  query?: string;
+}
