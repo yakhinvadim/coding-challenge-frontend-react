@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/coding-challenge-frontend-react/static/css/2.dd1e0db0.chunk.css"
   },
   {
-    "revision": "7281baad48bbbc104fafe6ac4ba8e338",
+    "revision": "93e6e325eb6c60efdb8c4d7adc3166de",
     "url": "/coding-challenge-frontend-react/index.html"
   }
 ];
