@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/bikes/precache-manifest.2c35dbd600e8cd11a7d05902d3e0b639.js"
+  "/coding-challenge-frontend-react/precache-manifest.df89992a13ac3dad7f6b81423e02edcb.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/bikes/index.html", {
+workbox.routing.registerNavigationRoute("/coding-challenge-frontend-react/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

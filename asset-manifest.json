@@ -1,15 +1,15 @@
 {
-  "main.js": "/bikes/static/js/main.65bf8bce.chunk.js",
-  "main.js.map": "/bikes/static/js/main.65bf8bce.chunk.js.map",
-  "runtime~main.js": "/bikes/static/js/runtime~main.a2654a12.js",
-  "runtime~main.js.map": "/bikes/static/js/runtime~main.a2654a12.js.map",
-  "static/css/2.dd1e0db0.chunk.css": "/bikes/static/css/2.dd1e0db0.chunk.css",
-  "static/js/2.e44601d2.chunk.js": "/bikes/static/js/2.e44601d2.chunk.js",
-  "static/js/2.e44601d2.chunk.js.map": "/bikes/static/js/2.e44601d2.chunk.js.map",
-  "index.html": "/bikes/index.html",
-  "precache-manifest.2c35dbd600e8cd11a7d05902d3e0b639.js": "/bikes/precache-manifest.2c35dbd600e8cd11a7d05902d3e0b639.js",
-  "service-worker.js": "/bikes/service-worker.js",
-  "static/css/2.dd1e0db0.chunk.css.map": "/bikes/static/css/2.dd1e0db0.chunk.css.map",
-  "static/media/bike.svg": "/bikes/static/media/bike.b4758c72.svg",
-  "static/media/logo.png": "/bikes/static/media/logo.f958e91a.png"
+  "main.js": "/coding-challenge-frontend-react/static/js/main.65bf8bce.chunk.js",
+  "main.js.map": "/coding-challenge-frontend-react/static/js/main.65bf8bce.chunk.js.map",
+  "runtime~main.js": "/coding-challenge-frontend-react/static/js/runtime~main.ab36a81e.js",
+  "runtime~main.js.map": "/coding-challenge-frontend-react/static/js/runtime~main.ab36a81e.js.map",
+  "static/css/2.dd1e0db0.chunk.css": "/coding-challenge-frontend-react/static/css/2.dd1e0db0.chunk.css",
+  "static/js/2.c042cd6f.chunk.js": "/coding-challenge-frontend-react/static/js/2.c042cd6f.chunk.js",
+  "static/js/2.c042cd6f.chunk.js.map": "/coding-challenge-frontend-react/static/js/2.c042cd6f.chunk.js.map",
+  "index.html": "/coding-challenge-frontend-react/index.html",
+  "precache-manifest.df89992a13ac3dad7f6b81423e02edcb.js": "/coding-challenge-frontend-react/precache-manifest.df89992a13ac3dad7f6b81423e02edcb.js",
+  "service-worker.js": "/coding-challenge-frontend-react/service-worker.js",
+  "static/css/2.dd1e0db0.chunk.css.map": "/coding-challenge-frontend-react/static/css/2.dd1e0db0.chunk.css.map",
+  "static/media/bike.svg": "/coding-challenge-frontend-react/static/media/bike.b4758c72.svg",
+  "static/media/logo.png": "/coding-challenge-frontend-react/static/media/logo.f958e91a.png"
 }
