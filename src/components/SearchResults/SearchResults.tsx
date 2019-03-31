@@ -18,7 +18,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
 }) => {
   const { pageIncidents, allIncidents, error } = useIncidents();
 
-  // on a pagination link click update the url with the new page number
+  // on a pagination link click, update the url with the new page number
   const handlePageClick = (event: React.MouseEvent, offset: number) => {
     const newQueryString = queryString.stringify({
       ...queryString.parse(location.search),
