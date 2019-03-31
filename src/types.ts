@@ -21,6 +21,23 @@ export interface Incident {
   type_properties: null;
 }
 
+export interface IncidentContent {
+  title: string;
+  description?: string;
+  address?: string;
+  occurred_at?: number;
+  updated_at?: number;
+}
+
+export interface Coordinates {
+  longitude: number;
+  latitude: number;
+}
+
+export interface MapViewport extends Coordinates {
+  zoom: number;
+}
+
 export interface Query {
   page?: number;
   per_page?: number;

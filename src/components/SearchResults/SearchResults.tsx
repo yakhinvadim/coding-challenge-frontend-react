@@ -1,5 +1,5 @@
 import React from "react";
-import IncidentCard from "../IncidentCard/IncidentCard";
+import IncidentCardWithImg from "../IncidentCardWithImg/IncidentCardWithImg";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router";
 import queryString from "query-string";
@@ -58,7 +58,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
       <Grid container spacing={24} direction="column">
         {pageIncidents.map(incident => (
           <Grid item key={incident.id}>
-            <IncidentCard incident={incident} />
+            <IncidentCardWithImg incident={incident} />
           </Grid>
         ))}
       </Grid>
