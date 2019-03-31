@@ -72,7 +72,7 @@ const SearchForm: React.FunctionComponent<Props> = ({ history, classes }) => {
         <Grid item xs={4}>
           <TextField
             id="text-query"
-            label="Search"
+            label="Search case descriptions"
             value={textQuery}
             onChange={handleTextQueryChange}
             placeholder="Cannondale"
