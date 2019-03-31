@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Incident } from "../types";
+import { Incident, Query } from "../types";
 import queryString from "query-string";
 import {
   ITEMS_PER_PAGE,
@@ -11,8 +11,10 @@ import getUrlParams from "../utils/getUrlParams";
 const useIncidents = () => {
   const [pageIncidents, setPageIncidents] = useState(null as Incident[] | null);
   const [allIncidents, setAllIncidents] = useState(null as Incident[] | null);
+  const [error, setError] = useState(null as Error | null);
 
   const parsedQuery = queryString.parse(location.search);
+  const { urlPage } = getUrlParams();
 
   useEffect(() => {
     const baseQuery = {
@@ -26,39 +28,30 @@ const useIncidents = () => {
     const pageResultsQuery = {
       ...baseQuery,
       per_page: ITEMS_PER_PAGE,
-      page: parsedQuery.page
+      page: urlPage
     };
 
     const allResultsQuery = {
       ...baseQuery,
-      per_page: INFINITE_ITEMS_PER_PAGE,
-      page: 1
+      per_page: INFINITE_ITEMS_PER_PAGE
     };
 
+    const fetchIncidents = (query: any) =>
+      fetch(
+        `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
+          query
+        )}`
+      )
+        .then(response => response.json())
+        .then(json => json.incidents)
+        .catch(setError);
+
     setPageIncidents(null);
-    fetch(
-      `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
-        pageResultsQuery
-      )}`
-    )
-      .then(response => response.json())
-      .then(jsonResponse => {
-        setPageIncidents(jsonResponse.incidents);
-      });
-
     setAllIncidents(null);
-    fetch(
-      `https://bikewise.org:443/api/v2/incidents?${queryString.stringify(
-        allResultsQuery
-      )}`
-    )
-      .then(response => response.json())
-      .then(jsonResponse => {
-        setAllIncidents(jsonResponse.incidents);
-      });
+    setError(null);
+    fetchIncidents(pageResultsQuery).then(setPageIncidents);
+    fetchIncidents(allResultsQuery).then(setAllIncidents);
   }, [parsedQuery.textQuery, parsedQuery.dateFrom, parsedQuery.dateTo]);
-
-  const { urlPage } = getUrlParams();
 
   // get pageIncidents from allIncidents if page or allIncidents were changed (client-side pagination)
   useEffect(() => {
@@ -72,7 +65,13 @@ const useIncidents = () => {
     }
   }, [urlPage, allIncidents]);
 
-  return { pageIncidents, setPageIncidents, allIncidents, setAllIncidents };
+  return {
+    pageIncidents,
+    setPageIncidents,
+    allIncidents,
+    setAllIncidents,
+    error
+  };
 };
 
 export default useIncidents;

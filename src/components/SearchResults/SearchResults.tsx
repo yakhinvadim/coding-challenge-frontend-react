@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import IncidentCard from "../IncidentCard/IncidentCard";
-import { Incident } from "../../types";
 import Grid from "@material-ui/core/Grid";
 import { withRouter, RouteComponentProps } from "react-router";
 import queryString from "query-string";
@@ -17,8 +16,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
   location,
   history
 }) => {
-  const { pageIncidents, allIncidents } = useIncidents();
-  const [isError, setIsError] = useState(false); // TODO handle errors
+  const { pageIncidents, allIncidents, error } = useIncidents();
 
   // on a pagination link click update the url with the new page number
   const handlePageClick = (event: React.MouseEvent, offset: number) => {
@@ -47,10 +45,10 @@ const SearchResults: React.FunctionComponent<Props> = ({
   );
 
   const IncidentsArea = () => {
-    if (isError) {
-      return <Typography variant="h5">Error</Typography>;
+    if (error) {
+      return <Typography variant="h5">Error: {error.message}</Typography>;
     }
-    if (pageIncidents == null) {
+    if (pageIncidents === null) {
       return <Typography variant="h5">Loading...</Typography>;
     }
     if (pageIncidents.length === 0) {
