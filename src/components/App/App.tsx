@@ -1,41 +1,21 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
-import SearchForm from "../SearchForm/SearchForm";
-import SearchResults from "../SearchResults/SearchResults";
-import Header from "../Header/Header";
+import { withStyles } from "@material-ui/core/styles";
+import PageCase from "../PageCase/PageCase";
+import PageIndex from "../PageIndex/PageIndex";
+import { Route } from "react-router-dom";
 
-const styles = createStyles({
+const styles = {
   "@global body": {
     overflowY: "overlay" as any // unofficial webkit value
-  },
-  wrapper: {
-    minWidth: 800,
-    maxWidth: 1000,
-    margin: "0 auto",
-    padding: 20
   }
-});
+};
 
-interface Props extends WithStyles<typeof styles> {}
-
-const App: React.FunctionComponent<Props> = ({ classes }) => {
+const App = () => {
   return (
-    <div className={classes.wrapper}>
-      <Grid container spacing={24}>
-        <Grid item xs={12}>
-          <Header />
-        </Grid>
-
-        <Grid item xs={12}>
-          <SearchForm />
-        </Grid>
-
-        <Grid item xs={12}>
-          <SearchResults />
-        </Grid>
-      </Grid>
-    </div>
+    <>
+      <Route path="/" exact component={PageIndex} />
+      <Route path="/case/:id" component={PageCase} />
+    </>
   );
 };
 
