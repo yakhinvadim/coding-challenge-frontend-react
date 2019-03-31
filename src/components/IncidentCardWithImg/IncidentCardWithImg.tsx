@@ -43,7 +43,7 @@ const IncidentCardWithImg: React.FunctionComponent<Props> = ({
           <img src={incident.media.image_url_thumb} className={classes.image} />
         )}
       </div>
-      <IncidentCardContent incident={incident} />
+      <IncidentCardContent incident={incident} withLink />
     </Paper>
   );
 };

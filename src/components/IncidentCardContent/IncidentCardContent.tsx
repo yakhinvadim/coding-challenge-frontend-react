@@ -6,6 +6,8 @@ import {
   Theme
 } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 import { IncidentContent } from "../../types";
 import getLocaleDateAndTime from "../../utils/getLocaleDateAndTime";
@@ -27,17 +29,29 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {
   incident: IncidentContent;
+  withLink?: boolean;
 }
 
 const IncidentCardContent: React.FunctionComponent<Props> = ({
   incident,
+  withLink,
   classes
 }) => {
+  const LinkToIncidentPage: React.FunctionComponent = props => (
+    <RouterLink to={`/case/${incident.id}`} {...props} />
+  );
+
   return (
     <div className={classes.cardContent}>
-      <Typography variant="h6" gutterBottom>
-        {incident.title || "Loading..."}
-      </Typography>
+      {withLink ? (
+        <Link component={LinkToIncidentPage} variant="h6" gutterBottom>
+          {incident.title}
+        </Link>
+      ) : (
+        <Typography variant="h6" gutterBottom>
+          {incident.title || "Loading..."}
+        </Typography>
+      )}
 
       <Typography variant="body1" gutterBottom>
         {incident.description || "No description"}

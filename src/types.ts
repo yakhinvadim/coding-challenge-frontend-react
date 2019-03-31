@@ -23,6 +23,7 @@ export interface Incident {
 
 export interface IncidentContent {
   title: string;
+  id?: number;
   description?: string;
   address?: string;
   occurred_at?: number;
