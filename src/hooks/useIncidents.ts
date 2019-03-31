@@ -34,10 +34,11 @@ const useIncidents = () => {
 
     const allResultsQuery = {
       ...baseQuery,
-      per_page: INFINITE_ITEMS_PER_PAGE
+      per_page: INFINITE_ITEMS_PER_PAGE,
+      page: 1
     };
 
-    const fetchIncidents = (query: any) =>
+    const fetchIncidents = (query: typeof allResultsQuery) =>
       fetch(`${bikeWiseApi}/incidents?${queryString.stringify(query)}`)
         .then(response => response.json())
         .then(json => json.incidents)

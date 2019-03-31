@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import getUrlParams from "../../utils/getUrlParams";
 import composeQueryString from "../../utils/composeQueryString";
+import { DatePickerInlineProps } from "material-ui-pickers/DatePicker/DatePickerInline";
 
 const styles = createStyles({
   datePicker: {
@@ -42,24 +43,26 @@ const SearchForm: React.FunctionComponent<Props> = ({ history, classes }) => {
     setTextQuery(event.target.value);
   };
 
-  const DatePickerTemplate = (props: any) => {
-    return (
-      <InlineDatePicker
-        clearable
-        autoOk
-        disableFuture
-        keyboard
-        className={classes.datePicker}
-        format="dd.MM.yyyy"
-        mask={value =>
-          value
-            ? [/\d/, /\d/, ".", /\d/, /\d/, ".", /\d/, /\d/, /\d/, /\d/]
-            : []
-        }
-        {...props}
-      />
-    );
-  };
+  const DatePickerTemplate: React.FunctionComponent<DatePickerInlineProps> = ({
+    value,
+    onChange,
+    ...props
+  }) => (
+    <InlineDatePicker
+      clearable
+      autoOk
+      disableFuture
+      keyboard
+      className={classes.datePicker}
+      format="dd.MM.yyyy"
+      mask={value =>
+        value ? [/\d/, /\d/, ".", /\d/, /\d/, ".", /\d/, /\d/, /\d/, /\d/] : []
+      }
+      value={value}
+      onChange={onChange}
+      {...props}
+    />
+  );
 
   return (
     <form onSubmit={handleSubmit}>
