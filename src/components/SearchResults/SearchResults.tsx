@@ -65,16 +65,22 @@ const SearchResults: React.FunctionComponent<Props> = ({
     );
   };
 
+  const PaginationArea = () => (
+    <Grid item xs={12} container justify="space-between" alignItems="center">
+      <Grid item>
+        <Pagination />
+      </Grid>
+
+      <Grid item>
+        <Typography variant="body1">{incidentsCount}</Typography>
+      </Grid>
+    </Grid>
+  );
+
   return (
     <Grid container spacing={24}>
-      <Grid item xs={12} container justify="space-between" alignItems="center">
-        <Grid item>
-          <Pagination />
-        </Grid>
-
-        <Grid item>
-          <Typography variant="body1">{incidentsCount}</Typography>
-        </Grid>
+      <Grid item xs={12}>
+        <PaginationArea />
       </Grid>
 
       <Grid item xs={12}>
@@ -82,7 +88,7 @@ const SearchResults: React.FunctionComponent<Props> = ({
       </Grid>
 
       <Grid item xs={12}>
-        <Pagination />
+        <PaginationArea />
       </Grid>
     </Grid>
   );
