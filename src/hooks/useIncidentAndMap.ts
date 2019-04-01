@@ -12,6 +12,7 @@ const useIncidentAndMap = (incidentId: string) => {
   } as IncidentContent);
   const [viewport, setViewport] = useState({} as MapViewport);
   const [pinCoordinates, setPinCoordinates] = useState({} as Coordinates);
+  const [error, setError] = useState(null as Error | null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -46,14 +47,15 @@ const useIncidentAndMap = (incidentId: string) => {
           longitude: coordinates[0],
           latitude: coordinates[1]
         });
-      });
+      })
+      .catch(setError);
 
     return () => {
       controller.abort();
     };
   }, []);
 
-  return { incident, viewport, setViewport, pinCoordinates };
+  return { incident, viewport, setViewport, pinCoordinates, error };
 };
 
 export default useIncidentAndMap;

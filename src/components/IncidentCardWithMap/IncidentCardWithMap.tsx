@@ -7,16 +7,25 @@ import { mapBoxToken } from "../../constants/constants";
 import useIncidentAndMap from "../../hooks/useIncidentAndMap";
 
 import "mapbox-gl/dist/mapbox-gl.css";
+import Typography from "@material-ui/core/Typography";
 
 const IncidentCardWithMap = ({ incidentId }: { incidentId: string }) => {
-  const { incident, viewport, setViewport, pinCoordinates } = useIncidentAndMap(
-    incidentId
-  );
+  const {
+    incident,
+    viewport,
+    setViewport,
+    pinCoordinates,
+    error
+  } = useIncidentAndMap(incidentId);
   const mapHeight = 400;
 
   return (
     <Paper>
-      <IncidentCardContent incident={incident} />
+      {error ? (
+        <IncidentCardContent incident={{ title: `Error: ${error.message}` }} />
+      ) : (
+        <IncidentCardContent incident={incident} />
+      )}
       {viewport.latitude &&
       viewport.longitude &&
       pinCoordinates.latitude &&
