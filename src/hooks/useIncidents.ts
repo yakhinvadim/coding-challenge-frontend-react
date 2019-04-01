@@ -38,8 +38,13 @@ const useIncidents = () => {
       page: 1
     };
 
+    const controller = new AbortController();
+    const { signal } = controller;
+
     const fetchIncidents = (query: typeof allResultsQuery) =>
-      fetch(`${bikeWiseApi}/incidents?${queryString.stringify(query)}`)
+      fetch(`${bikeWiseApi}/incidents?${queryString.stringify(query)}`, {
+        signal
+      })
         .then(response => response.json())
         .then(json => json.incidents)
         .catch(setError);
@@ -49,6 +54,10 @@ const useIncidents = () => {
     setError(null);
     fetchIncidents(pageResultsQuery).then(setPageIncidents);
     fetchIncidents(allResultsQuery).then(setAllIncidents);
+
+    return () => {
+      controller.abort();
+    };
   }, [parsedQuery.textQuery, parsedQuery.dateFrom, parsedQuery.dateTo]);
 
   // get pageIncidents from allIncidents if page or allIncidents were changed (client-side pagination)

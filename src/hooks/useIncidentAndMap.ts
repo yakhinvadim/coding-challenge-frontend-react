@@ -14,7 +14,12 @@ const useIncidentAndMap = (incidentId: string) => {
   const [pinCoordinates, setPinCoordinates] = useState({} as Coordinates);
 
   useEffect(() => {
-    fetch(`${bikeWiseApi}/incidents/${incidentId}`)
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    fetch(`${bikeWiseApi}/incidents/${incidentId}`, {
+      signal
+    })
       .then(response => response.json())
       .then(({ incident }: { incident: Incident }) => {
         setIncident(incident);
@@ -25,7 +30,8 @@ const useIncidentAndMap = (incidentId: string) => {
             occurred_after: incident.occurred_at,
             incident_type: "theft",
             query: incident.title
-          })}`
+          })}`,
+          { signal }
         );
       })
       .then(response => response.json())
@@ -41,6 +47,10 @@ const useIncidentAndMap = (incidentId: string) => {
           latitude: coordinates[1]
         });
       });
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return { incident, viewport, setViewport, pinCoordinates };
